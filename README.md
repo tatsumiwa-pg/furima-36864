@@ -30,9 +30,8 @@
 | shipping_fee_id   | integer    | null: false                    |
 | ship_from_id      | integer    | null: false                    |
 | shipping_date_id  | integer    | null: false                    |
-| items_price       | integer    | null: false                    |
-| is_active         | boolean    | null: false, default: true     |
-| user_id           | references | null: false, foreign_key: true |
+| items_price       | integer    | null: false                    | 
+| user              | references | null: false, foreign_key: true |
 
 ### Associations
 - belongs_to :user
@@ -43,8 +42,8 @@
 
 | Column   | Type       | Options                        |
 |----------|------------|--------------------------------|
-| items_id | references | null: false, foreign_key: true |
-| user_id  | references | null: false, foreign_key: true |
+| items    | references | null: false, foreign_key: true |
+| user     | references | null: false, foreign_key: true |
 
 ### Associations
 - belongs_to :item
@@ -62,6 +61,7 @@
 | house_number        | string     | null: false                    |
 | building_name       | string     |                                |
 | phone_number        | string     | null: false                    |
+| order               | references | null: false, foreign_key: true |
 
 ### Associations
 - belongs_to :order
