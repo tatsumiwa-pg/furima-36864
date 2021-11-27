@@ -25,10 +25,10 @@
 |-------------------|------------|--------------------------------|
 | items_name        | string     | null: false                    |
 | items_info        | text       | null: false                    |
-| items_category_id | integer    | null: false                    |
+| category_id       | integer    | null: false                    |
 | items_status_id   | integer    | null: false                    |
 | shipping_fee_id   | integer    | null: false                    |
-| ship_from_id      | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | shipping_date_id  | integer    | null: false                    |
 | items_price       | integer    | null: false                    | 
 | user              | references | null: false, foreign_key: true |
@@ -42,7 +42,7 @@
 
 | Column   | Type       | Options                        |
 |----------|------------|--------------------------------|
-| items    | references | null: false, foreign_key: true |
+| item     | references | null: false, foreign_key: true |
 | user     | references | null: false, foreign_key: true |
 
 ### Associations
