@@ -55,7 +55,7 @@
 - has_one :shipping_address
 ---
 
-## shipping_addresses_table
+## shipping_address_table
 
 | Column              | Type       | Options                        |
 |---------------------|------------|--------------------------------|
