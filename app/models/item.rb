@@ -2,6 +2,13 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :items_status
+  belongs_to :shipping_fee
+  belongs_to :prefecture
+  belongs_to :shipping_date
+
   with_options presence: true do
     validates :items_name, :items_info, :image
     validates :items_price,
