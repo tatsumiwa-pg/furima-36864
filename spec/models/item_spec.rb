@@ -6,7 +6,7 @@ RSpec.describe Item, type: :model do
   end
 
   context '商品情報の入力内容に問題がない場合' do
-    it 'すべての項目が正しく入力されていればユーザー登録できる' do
+    it 'すべての項目が正しく入力されていれば商品登録できる' do
       expect(@item).to be_valid
     end
   end
