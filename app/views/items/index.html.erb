@@ -127,10 +127,11 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-
-      <%= render 'list', collection: @items %>
-      <%= render 'sample_item' %>
-      
+      <% if @items.blank? %>
+        <%= render 'sample_item' %>
+      <% else %>
+        <%= render 'list', collection: @items %>
+      <% end %>
     </ul>
   </div>
   <%# /商品一覧 %>
