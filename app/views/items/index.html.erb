@@ -128,35 +128,9 @@
     </div>
     <ul class='item-lists'>
 
-      <% @items.each do |item| %>
-      <li class='list'>
-        <%= link_to "#" do %>
-        <div class='item-img-content'>
-          <%= image_tag item.image, class: "item-img" %>
-
-          <%# 商品が売れていればsold outを表示しましょう %>
-          <div class='sold-out'>
-            <span><%# Sold Out!! 一時的に非表示とします %></span>
-          </div>
-          <%# //商品が売れていればsold outを表示しましょう %>
-
-        </div>
-        <div class='item-info'>
-          <h3 class='item-name'>
-            <%= item[:items_name] %>
-          </h3>
-          <div class='item-price'>
-            <span><%= item[:items_price] %>円<br><%= item[:shipping_fee] %></span>
-            <div class='star-btn'>
-              <%= image_tag "star.png", class:"star-icon" %>
-              <span class='star-count'>0</span>
-            </div>
-          </div>
-        </div>
-        <% end %>
-      </li>
-      <% end %>
+      <%= render 'list', collection: @items %>
       <%= render 'sample_item' %>
+      
     </ul>
   </div>
   <%# /商品一覧 %>
