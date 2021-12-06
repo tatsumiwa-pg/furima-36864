@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
 
   def edit 
     @item = Item.find(params[:id])
+    unless current_user[:id] == @item.user[:id]
+      redirect_to root_path
+    end
   end
 
   def update
@@ -48,6 +51,6 @@ class ItemsController < ApplicationController
       :shipping_date_id,
       :items_price,
       :image
-    ).merge(user_id: current_user.id)
+    ).merge(user_id: current_user[:id])
   end
 end
