@@ -4,5 +4,4 @@ class Order < ApplicationRecord
   has_one    :shipping_addresses
 
   attr_accessor :token
-  validates :token, presence: true
 end
