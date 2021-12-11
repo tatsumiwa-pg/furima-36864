@@ -3,15 +3,14 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
 
   def index
-    @order = Order.new
+    @order_shipping_address = OrderShippingAddress.new
   end
 
   def create
-    @order = Order.new(order_params)
-    if @order.valid?
-      @order.save
-      shipping_address = ShippingAddress.create(shipping_address_params)
+    @order_shipping_address = OrderShippingAddress.new(order_params)
+    if @order_shipping_address.valid?
       pay_item
+      @order_shipping_address.save
       redirect_to root_path
     else
       render :index
@@ -21,11 +20,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:item_id, :token).merge(user_id: current_user[:id])
-  end
-
-  def shipping_address_params
-    params.permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(order_id: @order[:id])
+    params.require(:order_shipping_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user[:id])
   end
 
   def set_item
