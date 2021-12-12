@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+    refuse_re_order
   end
 
   def pay_item
@@ -34,5 +35,12 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def refuse_re_order
+    order = Order.find_by(item_id: @item[:id])
+    if current_user == @item.user || order != nil
+      redirect_to root_path
+    end
   end
 end

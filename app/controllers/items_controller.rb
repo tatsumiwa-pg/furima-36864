@@ -1,3 +1,4 @@
+require 'benchmark'
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
@@ -21,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @order = Order.find_by(item_id: @item[:id])
   end
 
   def edit

@@ -22,8 +22,7 @@
       </span>
     </div>
 
-    <%# 商品の販売状況による場合分けは、商品購入機能実装後に行う %>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @order == nil %>
       <% if current_user == @item.user %>
         <%= link_to "商品の編集", edit_item_path(@item[:id]), class: "item-red-btn" %>
         <p class="or-text">or</p>
@@ -32,7 +31,6 @@
         <%= link_to "購入画面に進む", item_orders_path(@item[:id]),class:"item-red-btn"%>
       <% end %>
     <% end %>
-    <%# 商品の販売状況による場合分けは、商品購入機能実装後に行う %>
 
     <div class="item-explain-box">
       <span><%= @item[:items_info] %></span>
