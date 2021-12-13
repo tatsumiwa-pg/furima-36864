@@ -57,10 +57,20 @@ RSpec.describe OrderShippingAddress, type: :model do
         @order_shipping_address.valid?
         expect(@order_shipping_address.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが数字のみで構成されていなければ保存できない' do
-        @order_shipping_address.phone_number = ''
+      it 'phone_numberが半角数字のみで構成されていなければ保存できない' do
+        @order_shipping_address.phone_number = '123456789０１'
         @order_shipping_address.valid?
-        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only half-width numbers')
+        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only half-width numbers(digits: 10~11)')
+      end
+      it 'phone_numberが9桁以下では保存できない' do
+        @order_shipping_address.phone_number = '123456789'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only half-width numbers(digits: 10~11)')
+      end
+      it 'phone_numberが12桁以上では保存できない' do
+        @order_shipping_address.phone_number = '123456789012'
+        @order_shipping_address.valid?
+        expect(@order_shipping_address.errors.full_messages).to include('Phone number is invalid. Input only half-width numbers(digits: 10~11)')
       end
       it 'userが紐付いていないと保存できない' do
         @order_shipping_address.user_id = nil
