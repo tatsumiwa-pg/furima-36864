@@ -20,7 +20,18 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_shipping_address).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user[:id])
+    params.require(:order_shipping_address).permit(
+      :postal_code,
+      :prefecture_id,
+      :city,
+      :house_number,
+      :building_name,
+      :phone_number
+    ).merge(
+      token: params[:token],
+      item_id: params[:item_id],
+      user_id: current_user[:id]
+    )
   end
 
   def set_item
@@ -29,7 +40,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item[:items_price],
       card: order_params[:token],
@@ -39,8 +50,6 @@ class OrdersController < ApplicationController
 
   def refuse_re_order
     order = Order.find_by(item_id: @item[:id])
-    if current_user == @item.user || order != nil
-      redirect_to root_path
-    end
+    redirect_to root_path if current_user == @item.user || !order.nil?
   end
 end
