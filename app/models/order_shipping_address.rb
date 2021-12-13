@@ -8,7 +8,7 @@ class OrderShippingAddress
     validates :postal_code,
               format: { with: /\A[0-9]{3}-[0-9]{4}\z/,
                         message: 'is invalid. Include hyphen(-) & half-width numbers(e.g. 000-0000)' }
-    validates :phone_number, 
+    validates :phone_number,
               format: { with: /\A\d{10}$|^\d{11}\z/,
                         message: 'is invalid. Input only half-width numbers(digits: 10~11)' }
   end
