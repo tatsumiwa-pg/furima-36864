@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
       @user1.valid?
       expect(@user1.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
     end
-    it'passwordが半角英数字の２種類を含んでいなければユーザー登録できない2' do
+    it 'passwordが半角英数字の２種類を含んでいなければユーザー登録できない2' do
       @user2.password = 'あああああa'
       @user2.password_confirmation = 'あああああa'
       @user2.valid?
