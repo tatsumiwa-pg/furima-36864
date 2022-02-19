@@ -1,10 +1,10 @@
 <% @items.each do |item| %>
   <li class='list'>
-    <%= link_to item_path(item[:id]) do %>
+    <%= link_to item_path(item.id) do %>
     <div class='item-img-content'>
       <%= image_tag item.image, class: "item-img" %>
 
-      <% if !Order.find_by(item_id: item[:id]).nil? %>
+      <% if item.order.present? %>
         <div class='sold-out'>
           <span><%= 'Sold Out!!' %></span>
         </div>
@@ -13,10 +13,10 @@
     </div>
     <div class='item-info'>
       <h3 class='item-name'>
-        <%= item[:items_name] %>
+        <%= item.items_name %>
       </h3>
       <div class='item-price'>
-        <span><%= item[:items_price] %>円<br><%= item.shipping_fee[:name] %></span>
+        <span><%= item.items_price %>円<br><%= item.shipping_fee.name %></span>
         <div class='star-btn'>
           <%= image_tag "star.png", class:"star-icon" %>
           <span class='star-count'>0</span>

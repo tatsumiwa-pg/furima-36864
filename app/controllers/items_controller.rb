@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, only: [:edit, :destroy]
 
   def index
-    @items = Item.includes(:user).order('created_at DESC')
+    @items = Item.preload(:user, :order).order('created_at DESC')
   end
 
   def new
@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @order = Order.find_by(item_id: @item[:id])
+    @order = @item.order
   end
 
   def edit
@@ -53,7 +53,7 @@ class ItemsController < ApplicationController
       :shipping_date_id,
       :items_price,
       :image
-    ).merge(user_id: current_user[:id])
+    ).merge(user_id: current_user.id)
   end
 
   def set_item
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    order = Order.find_by(item_id: @item[:id])
-    redirect_to root_path if current_user[:id] != @item.user[:id] || !order.nil?
+    order = @item.order
+    redirect_to root_path if current_user.id != @item.user.id || order.present?
   end
 end
