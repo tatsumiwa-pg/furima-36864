@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   before_action :move_to_index, only: [:edit, :destroy]
 
   def index
-    @items = Item.preload(:user, :order).order('created_at DESC')
+    @items = Item.preload(:order).order('created_at DESC')
   end
 
   def new
