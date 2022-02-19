@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
     ).merge(
       token: params[:token],
       item_id: params[:item_id],
-      user_id: current_user[:id]
+      user_id: current_user.id
     )
   end
 
@@ -42,14 +42,14 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @item[:items_price],
+      amount: @item.items_price,
       card: order_params[:token],
       currency: 'jpy'
     )
   end
 
   def refuse_re_order
-    order = Order.find_by(item_id: @item[:id])
-    redirect_to root_path if current_user == @item.user || !order.nil?
+    order = @item.order
+    redirect_to root_path and return if current_user.id == @item.user_id || !order.nil?
   end
 end
